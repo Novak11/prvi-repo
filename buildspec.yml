@@ -3,9 +3,12 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - apt-get update
+      - apt-get install -y awscli
+      - aws --version  # To check the installation
       - echo Logging in to Amazon ECR...
-      - $(/usr/local/bin/aws ecr-public get-login-password --region us-east-1 | /usr/bin/docker login --username AWS --password-stdin public.ecr.aws/l4h4u4d1)
-
+      - echo Logging in to Amazon ECR...
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l4h4u4d1
 
   build:
     commands:
