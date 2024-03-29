@@ -3,13 +3,10 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Updating packages and installing AWS CLI...
-      - pacman -Syu --noconfirm
-      - pacman -S --noconfirm aws-cli
+      - echo Checking AWS CLI version...
       - aws --version
       - echo Logging in to Amazon ECR...
-      - echo Logging in to Amazon ECR...
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l4h4u4d1
+      - $(aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l4h4u4d1)
 
   build:
     commands:
@@ -27,4 +24,5 @@ phases:
       - printf '[{"name":"flask-kont","imageUri":"public.ecr.aws/l4h4u4d1/prvi-repo:latest"}]' > imagedefinitions.json
 
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - imagedefinitions.json
