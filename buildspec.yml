@@ -3,9 +3,10 @@ version: 0.2
 phases:
   pre_build:
     commands:
-    - apk update
-    - apk add aws-cli
-    - aws --version
+      - echo Updating packages and installing AWS CLI...
+      - pacman -Syu --noconfirm
+      - pacman -S --noconfirm aws-cli
+      - aws --version
       - echo Logging in to Amazon ECR...
       - echo Logging in to Amazon ECR...
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l4h4u4d1
